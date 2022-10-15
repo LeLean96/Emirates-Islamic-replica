@@ -31,7 +31,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LongDescription)
+                @Html.Raw(item.LongDescription)
             </td>
             <td>
                 <img src="@item.ImagePath" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
