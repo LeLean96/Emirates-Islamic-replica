@@ -1,22 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using S22_AWP.Data;
 using S22_AWP.Models;
+using S22_AWP.ViewModels;
 
 namespace S22_AWP.Controllers
 {
     public class FunctionsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public FunctionsController(ApplicationDbContext context)
+
+        public FunctionsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = hostEnvironment;
         }
 
         // GET: Functions
@@ -54,11 +60,12 @@ namespace S22_AWP.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,LongDescription,Image")] Function function)
+        public async Task<IActionResult> Create(FunctionViewModel function)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(function);
+
+                _context.Add(function.ToDB(_context, _webHostEnvironment));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -78,7 +85,8 @@ namespace S22_AWP.Controllers
             {
                 return NotFound();
             }
-            return View(function);
+
+            return View(FunctionViewModel.FromDB(function));
         }
 
         // POST: Functions/Edit/5
@@ -86,7 +94,7 @@ namespace S22_AWP.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,LongDescription,Image")] Function function)
+        public async Task<IActionResult> Edit(int id, FunctionViewModel function)
         {
             if (id != function.ID)
             {
@@ -97,7 +105,7 @@ namespace S22_AWP.Controllers
             {
                 try
                 {
-                    _context.Update(function);
+                    _context.Update(function.ToDB(_context, _webHostEnvironment));
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
