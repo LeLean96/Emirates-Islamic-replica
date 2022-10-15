@@ -12,5 +12,6 @@ namespace S22_AWP.Models
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         public string Image { get; set; }
+        public string ImagePath { get { return UploadUtils.UploadedFilePath(Image); } }
     }
 }
