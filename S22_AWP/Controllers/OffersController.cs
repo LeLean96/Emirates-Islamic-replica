@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using S22_AWP.Data;
 using S22_AWP.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using S22_AWP.ViewModels;
 
 namespace S22_AWP.Controllers
 {
     public class OffersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public OffersController(ApplicationDbContext context)
+        public OffersController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = hostEnvironment;
         }
 
         // GET: Offers
@@ -54,11 +59,11 @@ namespace S22_AWP.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,ShortDescription,LongDescription,Image")] Offer offer)
+        public async Task<IActionResult> Create(OfferViewModel offer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(offer);
+                _context.Add(offer.ToDB(_context, _webHostEnvironment));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -78,7 +83,7 @@ namespace S22_AWP.Controllers
             {
                 return NotFound();
             }
-            return View(offer);
+            return View(OfferViewModel.FromDB(offer));
         }
 
         // POST: Offers/Edit/5
@@ -86,7 +91,7 @@ namespace S22_AWP.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ShortDescription,LongDescription,Image")] Offer offer)
+        public async Task<IActionResult> Edit(int id, OfferViewModel offer)
         {
             if (id != offer.ID)
             {
@@ -97,7 +102,7 @@ namespace S22_AWP.Controllers
             {
                 try
                 {
-                    _context.Update(offer);
+                    _context.Update(offer.ToDB(_context, _webHostEnvironment));
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

@@ -25,14 +25,14 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.LongDescription)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LongDescription)
+        <dd class="col-sm-10">
+            @Html.Raw(Model.LongDescription)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Image)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
+            <img src="@Model.ImagePath" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
         </dd>
     </dl>
 </div>

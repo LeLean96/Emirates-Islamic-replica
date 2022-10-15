@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.ShortDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LongDescription)
+                @Html.Raw(item.LongDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                <img src="@item.ImagePath" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
