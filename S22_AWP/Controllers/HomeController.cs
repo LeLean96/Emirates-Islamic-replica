@@ -26,7 +26,8 @@ namespace S22_AWP.Controllers
         {
             var homeViewModel = new HomeViewModel
             {
-                Functions = _context.Functions
+                Functions = _context.Functions,
+                Products = _context.Products
             };
             return View(homeViewModel);
         }
@@ -55,6 +56,21 @@ namespace S22_AWP.Controllers
             }
 
             return View(function);
+        }
+        public async Task<IActionResult> ProductDetailView(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products.FirstOrDefaultAsync(m => m.ID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
     }
 }

@@ -9,5 +9,6 @@ namespace S22_AWP.ViewModels
     public class HomeViewModel
     {
         public IEnumerable<Function> Functions;
+        public IEnumerable<Product> Products;
     }
 }

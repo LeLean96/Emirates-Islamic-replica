@@ -76,6 +76,25 @@
     </div>
 </div>
 
+<div class="col-md-12">
+    <div class="row"><h1>Popular products</h1></div>
+    <div class="row">
+        <div class="card-deck popular-products-deck">
+            @foreach (var item in Model.Products)
+            {
+                <div class="card popular-product">
+                    <img src="@item.ImagePath" alt="@item.Title" title="@item.Title">
+                    <div class="card-body">
+                        <h3>@item.Title</h3>
+                        <p class="card-text">@item.ShortDescription</p>
+                    </div>
+                    <div class="card-footer"> <a href="@Url.Action("ProductDetailView", "Home", new { id = item.ID })" class="btn btn-orange">View &raquo;</a> </div>
+                </div>
+            }
+            </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
         function scroll_functions(val) {
