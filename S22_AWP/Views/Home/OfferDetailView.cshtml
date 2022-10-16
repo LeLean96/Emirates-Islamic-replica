@@ -1,0 +1,7 @@
+﻿@model S22_AWP.Models.Offer
+@{
+    ViewData["Title"] = Model.Title;
+}
+<h1>@ViewData["Title"]</h1>
+@Html.Raw(Model.LongDescription)
+<img src="@Model.ImagePath" alt="Sample Photo" />

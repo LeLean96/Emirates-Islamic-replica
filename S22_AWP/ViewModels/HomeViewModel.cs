@@ -10,5 +10,6 @@ namespace S22_AWP.ViewModels
     {
         public IEnumerable<Function> Functions;
         public IEnumerable<Product> Products;
+        public IEnumerable<Offer> Offers;
     }
 }

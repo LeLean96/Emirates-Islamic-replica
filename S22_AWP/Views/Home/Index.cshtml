@@ -91,10 +91,31 @@
                     <div class="card-footer"> <a href="@Url.Action("ProductDetailView", "Home", new { id = item.ID })" class="btn btn-orange">View &raquo;</a> </div>
                 </div>
             }
-            </div>
+        </div>
     </div>
 </div>
-
+<div class="col-md-12">
+    <div class="row"><h1>Latest offers</h1></div>
+    <div class="row">
+        <div class="card-deck popular-products-deck">
+            @foreach (var item in Model.Offers)
+            {
+                <div class="card offer">
+                    <div class="offer-block">
+                        <img src="@item.ImagePath" alt="@item.Title" title="@item.Title" />
+                        <div class="panel-overlay p-3">
+                            <h3>@item.Title</h3>
+                            <div class="content-panel">
+                                <p>@item.ShortDescription</p>
+                                <a href="@Url.Action("OfferDetailView", "Home", new { id = item.ID })" class="btn btn-orange">Know More &raquo;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 @section Scripts{
     <script>
         function scroll_functions(val) {
