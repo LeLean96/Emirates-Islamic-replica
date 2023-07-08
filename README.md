@@ -1,0 +1,2 @@
+# Emirates-Islamic-replica
+For my university project, I built a replica website using ASP.Net, HTML, CSS, and JavaScript to emulate the design and functionality of https://www.emiratesislamic.ae/eng/. ↗ The replica website includes similar features and interfaces as the original website, and aims to provide a comprehensive understanding of the design and development process involved in creating a real-world website.
